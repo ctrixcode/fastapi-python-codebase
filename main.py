@@ -1,5 +1,7 @@
+from src.app import app
+
 def main():
-    print("Hello from fastapi-python-codebase!")
+    return app
 
 
 if __name__ == "__main__":
