@@ -1,0 +1,9 @@
+repos:
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  # Use the latest version or a specific version you want to pin
+  rev: v0.1.9 
+  hooks:
+    - id: ruff-format
+      # 🎯 The 'files' regex ensures it only targets files in your backend/ directory
+      # Adjust this regex (e.g., ^src/) if your main code is in a different folder.
+      files: ^src/
