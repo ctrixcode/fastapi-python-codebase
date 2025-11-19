@@ -1,4 +1,5 @@
 import structlog
+import logging
 
 structlog.configure(
     processors=[

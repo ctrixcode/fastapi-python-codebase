@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from typing import Dict
 from .schemas.health import HealthCheck
 from starlette.middleware.cors import CORSMiddleware
+from .core.logger import log
 
 app = FastAPI(title="FastAPI Python Codebase", version="1.0.0")
 
@@ -24,4 +25,5 @@ app.add_middleware(
     response_model=HealthCheck,
 )
 def root_endpoint():
-    return health_check("success", "API is running")
+    log.info("Root endpoint / reached")
+    return HealthCheck(status="success", message="API is running")
