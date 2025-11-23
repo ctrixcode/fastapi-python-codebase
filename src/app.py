@@ -1,18 +1,31 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
+
 from .core.exceptions import APIException
 from .core.logger import log
 from .core.messages import ResponseMessages
 from .schemas.health import HealthCheck
 from .schemas.response import ErrorResponse, SuccessResponse
-from starlette.middleware.cors import CORSMiddleware
 from .core.settings import get_settings
-from pydantic import ValidationError
-import sys
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Lifespan manager for the FastAPI application."""
+    # Sever started
+    yield
+    # Server stopped
+
 
 settings = get_settings()
 
-app = FastAPI(title=settings.app_name, version=settings.app_version)
+app = FastAPI(
+    title=settings.app_name,
+    version=settings.app_version,
+    lifespan=lifespan,
+)
 
 
 @app.exception_handler(APIException)
@@ -23,13 +36,6 @@ async def api_exception_handler(request, exc: APIException):
         content=ErrorResponse(err_code=error.code, message=error.message),
     )
 
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-)
 
 # ==============================================================================
 # ARCHITECTURAL DECISION: RATE LIMITING STRATEGY
