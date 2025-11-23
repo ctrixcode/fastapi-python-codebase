@@ -17,4 +17,4 @@ if __name__ == "__main__":
     log.info(f"Starting server in '{settings.APP_ENV}' mode.")
 
     # Start the Uvicorn server
-    uvicorn.run(app, host=settings.HOST, port=settings.PORT)
+    uvicorn.run(app, host=settings.HOST, port=settings.PORT, log_config=None)
