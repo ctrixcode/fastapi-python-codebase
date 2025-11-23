@@ -1,10 +1,23 @@
 from fastapi import FastAPI
-from typing import Dict
-from .schemas.health import HealthCheck
-from starlette.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from .core.exceptions import APIException
 from .core.logger import log
+from .core.messages import ResponseMessages
+from .schemas.health import HealthCheck
+from .schemas.response import ErrorResponse, SuccessResponse
+from starlette.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="FastAPI Python Codebase", version="1.0.0")
+
+
+@app.exception_handler(APIException)
+async def api_exception_handler(request, exc: APIException):
+    error = ErrorDetail(code=exc.code, message=exc.message)
+    return JSONResponse(
+        status_code=exc.status_code,
+        content=ErrorResponse(err_code=error.code, message=error.message),
+    )
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -38,10 +51,12 @@ app.add_middleware(
     name="root_endpoint",
     summary="Root Endpoint",
     description="Check if the FastAPI application is running.",
+    response_model=SuccessResponse[HealthCheck],
     responses={200: {"description": "Successful Response"}},
     status_code=200,
-    response_model=HealthCheck,
 )
 def root_endpoint():
     log.info("Root endpoint / reached")
-    return HealthCheck(status="success", message="API is running")
+    return SuccessResponse(
+        data=HealthCheck(status="success", message=ResponseMessages.API_IS_RUNNING)
+    )
