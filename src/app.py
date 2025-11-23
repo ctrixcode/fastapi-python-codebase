@@ -6,8 +6,20 @@ from .core.messages import ResponseMessages
 from .schemas.health import HealthCheck
 from .schemas.response import ErrorResponse, SuccessResponse
 from starlette.middleware.cors import CORSMiddleware
+from .core.settings import get_settings
+from pydantic import ValidationError
+import sys
 
-app = FastAPI(title="FastAPI Python Codebase", version="1.0.0")
+# Load Env and fail if env are missing
+try:
+    settings = get_settings()
+except ValidationError as e:
+    log.error("Missing environment variables:")
+    for error in e.errors():
+        log.error(f"  - {error['loc'][0]}: {error['msg']}")
+    sys.exit(1)
+
+app = FastAPI(title=settings.app_name, version=settings.app_version)
 
 
 @app.exception_handler(APIException)
