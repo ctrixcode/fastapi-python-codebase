@@ -10,14 +10,7 @@ from .core.settings import get_settings
 from pydantic import ValidationError
 import sys
 
-# Load Env and fail if env are missing
-try:
-    settings = get_settings()
-except ValidationError as e:
-    log.error("Missing environment variables:")
-    for error in e.errors():
-        log.error(f"  - {error['loc'][0]}: {error['msg']}")
-    sys.exit(1)
+settings = get_settings()
 
 app = FastAPI(title=settings.app_name, version=settings.app_version)
 

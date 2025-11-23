@@ -5,6 +5,9 @@ from functools import lru_cache
 class Settings(BaseSettings):
     app_name: str = "FastAPI Python Codebase"
     app_version: str = "1.0.0"
+    APP_ENV: str = "development"
+    HOST: str = "127.0.0.1"
+    PORT: int = 8000
 
 
 @lru_cache()
