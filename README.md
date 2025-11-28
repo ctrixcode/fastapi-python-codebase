@@ -67,7 +67,7 @@ To run the application, use `uvicorn` directly. It will automatically pick up th
 2.  **Run the development server:**
     This command starts the server with "hot-reloading", which automatically restarts the server when you make code changes.
     ```bash
-    uvicorn src.app:app --reload
+    uv run uvicorn src.app:app --reload
     ```
 
 The API will be available at the host and port specified in your `.env` file (e.g., `http://127.0.0.1:8001`).
