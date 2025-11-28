@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     APP_ENV: str = "development"
     HOST: str = "127.0.0.1"
     PORT: int = 8000
+    DATABASE_URL: str = "postgresql+asyncpg://user:password@host:port/db_name"
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
