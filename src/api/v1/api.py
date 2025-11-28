@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from .endpoints import example
+from src.features.examples.api import router as example_router
 
 api_router = APIRouter()
-api_router.include_router(example.router, prefix="/examples", tags=["examples"])
+api_router.include_router(example_router, prefix="/examples", tags=["examples"])

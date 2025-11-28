@@ -2,8 +2,8 @@ from typing import Sequence
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
-from src.models.example import Example
-from src.schemas.example import ExampleCreate, ExampleUpdate
+from .model import Example
+from .schema import ExampleCreate, ExampleUpdate
 
 
 async def create_example(session: AsyncSession, example: ExampleCreate) -> Example:

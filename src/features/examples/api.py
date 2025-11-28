@@ -3,8 +3,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from src.core.database import get_db
-from src.crud import example as crud
-from src.schemas.example import ExampleCreate, ExampleRead, ExampleUpdate
+from . import crud
+from .schema import ExampleCreate, ExampleRead, ExampleUpdate
 
 router = APIRouter()
 

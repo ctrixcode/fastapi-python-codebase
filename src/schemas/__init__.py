@@ -1,1 +1,1 @@
-from . import health, response, example
+from . import health, response
