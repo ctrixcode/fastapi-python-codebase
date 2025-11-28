@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 
+from .core.database import init_db
 from .core.exceptions import APIException
 from .core.logger import log
 from .core.messages import ResponseMessages
@@ -15,6 +16,9 @@ from .core.settings import get_settings
 async def lifespan(app: FastAPI):
     """Lifespan manager for the FastAPI application."""
     # Sever started
+    log.info("Initializing database...")
+    await init_db()
+    log.info("Database initialization complete.")
     yield
     # Server stopped
 
@@ -30,10 +34,9 @@ app = FastAPI(
 
 @app.exception_handler(APIException)
 async def api_exception_handler(request, exc: APIException):
-    error = ErrorDetail(code=exc.code, message=exc.message)
     return JSONResponse(
         status_code=exc.status_code,
-        content=ErrorResponse(err_code=error.code, message=error.message),
+        content=ErrorResponse(err_code=exc.code, message=exc.message),
     )
 
 
