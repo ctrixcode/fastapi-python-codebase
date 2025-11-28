@@ -7,6 +7,8 @@ from pydantic import ValidationError
 from src.app import app
 from src.core.logger import log
 from src.core.settings import get_settings
+from src.models.example import Example  # noqa
+
 
 
 async def main():

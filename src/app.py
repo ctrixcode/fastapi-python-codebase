@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 
+from .api.v1.api import api_router
 from .core.database import init_db
 from .core.exceptions import APIException
 from .core.logger import log
@@ -30,6 +31,8 @@ app = FastAPI(
     version=settings.app_version,
     lifespan=lifespan,
 )
+
+app.include_router(api_router, prefix="/api/v1")
 
 
 @app.exception_handler(APIException)
