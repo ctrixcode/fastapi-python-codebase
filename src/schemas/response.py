@@ -1,11 +1,10 @@
-from pydantic.generics import GenericModel
 from pydantic import BaseModel, Field
 from typing import TypeVar, Generic
 
 T = TypeVar("T")
 
 
-class SuccessResponse(GenericModel, Generic[T]):
+class SuccessResponse(BaseModel, Generic[T]):
     success: bool = Field(default=True, description="Response status")
     data: T = Field(..., description="Response data")
 

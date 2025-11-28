@@ -29,9 +29,11 @@ def client():
         yield c
 
 
-def test_create_and_get_example(client: TestClient):
+@pytest.mark.anyio
+async def test_create_and_get_example(client: TestClient, create_test_tables):
     """
     Tests creating an example and then retrieving it.
+    The 'create_test_tables' fixture is explicitly requested to set up the DB.
     """
     # 1. Create a new example
     create_response = client.post(
@@ -53,11 +55,12 @@ def test_create_and_get_example(client: TestClient):
     assert fetched_example["name"] == "Test Example"
 
 
-def test_get_nonexistent_example(client: TestClient):
+@pytest.mark.anyio
+async def test_get_nonexistent_example(client: TestClient, create_test_tables):
     """
     Tests that fetching a nonexistent example returns a 404 error.
+    The 'create_test_tables' fixture is explicitly requested to set up the DB.
     """
-
     response = client.get("/api/v1/examples/99999")
     assert response.status_code == 404
     assert response.json()["message"] == "Example not found"

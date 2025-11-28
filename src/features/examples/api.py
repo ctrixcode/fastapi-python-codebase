@@ -1,9 +1,10 @@
 from typing import Sequence
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from src.core.database import get_db
+from src.core.exceptions import NotFoundException
 from .schema import ExampleCreate, ExampleRead, ExampleUpdate
 from .service import ExampleService
 
@@ -37,7 +38,7 @@ async def read_example(
 ):
     db_example = await service.get_example(example_id=example_id)
     if db_example is None:
-        raise HTTPException(status_code=404, detail="Example not found")
+        raise NotFoundException("Example not found")
     return db_example
 
 
@@ -51,7 +52,7 @@ async def update_example(
         example_id=example_id, example_data=example
     )
     if db_example is None:
-        raise HTTPException(status_code=404, detail="Example not found")
+        raise NotFoundException("Example not found")
     return db_example
 
 
@@ -61,5 +62,5 @@ async def delete_example(
 ):
     success = await service.delete_example(example_id=example_id)
     if not success:
-        raise HTTPException(status_code=404, detail="Example not found")
+        raise NotFoundException("Example not found")
     return {"ok": True}

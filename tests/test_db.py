@@ -25,14 +25,3 @@ TestingSessionLocal = sessionmaker(
     expire_on_commit=False,
 )
 
-
-@pytest.fixture(scope="session", autouse=True)
-async def create_test_tables():
-    """
-    Fixture to create all tables in the test database before any tests run.
-    """
-    async with engine.begin() as conn:
-        await conn.run_sync(SQLModel.metadata.create_all)
-    yield
-    async with engine.begin() as conn:
-        await conn.run_sync(SQLModel.metadata.drop_all)
