@@ -57,18 +57,17 @@ This project is a production-ready template for building modern, asynchronous we
 
 ### Running the Application
 
-With the `[tool.uv.scripts]` configured in `pyproject.toml`, running the application is simple.
+To run the application, use `uvicorn` directly. It will automatically pick up the `UVICORN_HOST` and `UVICORN_PORT` variables from your `.env` file.
 
-1.  **For Development (with auto-reload):**
-    This command starts the server and automatically reloads it when you make code changes. It reads the `UVICORN_HOST` and `UVICORN_PORT` from your `.env` file.
+1.  **Activate the virtual environment:**
     ```bash
-    uv run dev
+    source .venv/bin/activate # On Windows, use `.\.venv\Scripts\activate`
     ```
 
-2.  **For Production-like environments:**
-    This command runs the server without auto-reload.
+2.  **Run the development server:**
+    This command starts the server with "hot-reloading", which automatically restarts the server when you make code changes.
     ```bash
-    uv run start
+    uvicorn src.app:app --reload
     ```
 
 The API will be available at the host and port specified in your `.env` file (e.g., `http://127.0.0.1:8001`).
