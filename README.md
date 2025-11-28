@@ -57,21 +57,21 @@ This project is a production-ready template for building modern, asynchronous we
 
 ### Running the Application
 
-You can run the application in two ways. The recommended way is using `python main.py`.
+With the `[tool.uv.scripts]` configured in `pyproject.toml`, running the application is simple.
 
-1.  **Recommended Method:**
-    This runs the application via the main entrypoint, which includes important startup validations (like checking environment variables).
+1.  **For Development (with auto-reload):**
+    This command starts the server and automatically reloads it when you make code changes. It reads the `UVICORN_HOST` and `UVICORN_PORT` from your `.env` file.
     ```bash
-    python main.py
+    uv run dev
     ```
 
-2.  **Development Mode (with auto-reload):**
-    This method is useful during development as it automatically reloads the server on code changes. Note that it bypasses the startup validations in `main.py`.
+2.  **For Production-like environments:**
+    This command runs the server without auto-reload.
     ```bash
-    uvicorn src.app:app --reload --host 127.0.0.1 --port 8001
+    uv run start
     ```
 
-The API will be available at `http://127.0.0.1:8001`.
+The API will be available at the host and port specified in your `.env` file (e.g., `http://127.0.0.1:8001`).
 
 ### Running Tests
 
