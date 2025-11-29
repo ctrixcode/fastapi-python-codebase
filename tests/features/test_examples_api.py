@@ -29,7 +29,7 @@ def client():
         yield c
 
 
-@pytest.mark.anyio
+@pytest.mark.anyio(backend='asyncio')
 async def test_create_and_get_example(client: TestClient, create_test_tables):
     """
     Tests creating an example and then retrieving it.
@@ -55,7 +55,7 @@ async def test_create_and_get_example(client: TestClient, create_test_tables):
     assert fetched_example["name"] == "Test Example"
 
 
-@pytest.mark.anyio
+@pytest.mark.anyio(backend='asyncio')
 async def test_get_nonexistent_example(client: TestClient, create_test_tables):
     """
     Tests that fetching a nonexistent example returns a 404 error.

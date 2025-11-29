@@ -5,6 +5,11 @@ from sqlmodel import SQLModel
 from tests.test_db import engine
 
 
+@pytest.fixture(scope="session")
+def anyio_backend():
+    return "asyncio"
+
+
 @pytest.fixture
 async def create_test_tables():
     """
