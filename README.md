@@ -55,6 +55,22 @@ This project is a production-ready template for building modern, asynchronous we
     DATABASE_URL="postgresql+asyncpg://user:password@localhost:5432/db_name"
     ```
 
+### Recommended VS Code Settings
+
+For a cleaner file explorer in Visual Studio Code, it's recommended to hide generated and cache directories. Create or open the `.vscode/settings.json` file in your project and add the following configuration:
+
+```json
+{
+  "files.exclude": {
+    ".idea": true,
+    ".pytest_cache": true,
+    ".ruff_cache": true,
+    ".venv": true,
+    "**/__pycache__": true
+  }
+}
+```
+
 ### Running the Application
 
 To run the application, use `uvicorn` directly. It will automatically pick up the `UVICORN_HOST` and `UVICORN_PORT` variables from your `.env` file.
