@@ -16,15 +16,15 @@ dependencies = [
     "structlog>=25.5.0",
 ]
 
-[dependency-groups]
-test = [
-    "aiosqlite>=0.21.0",
-    "httpx>=0.28.1",
-    "pytest>=9.0.1",
-]
-
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = "test_*.py"
 pythonpath = "."
 asyncio_mode = "strict"
+
+[dependency-groups]
+dev = [
+    "aiosqlite>=0.21.0",
+    "httpx>=0.28.1",
+    "pytest>=9.0.1",
+]

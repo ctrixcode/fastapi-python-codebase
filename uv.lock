@@ -244,7 +244,7 @@ dependencies = [
 ]
 
 [package.dev-dependencies]
-test = [
+dev = [
     { name = "aiosqlite" },
     { name = "httpx" },
     { name = "pytest" },
@@ -264,7 +264,7 @@ requires-dist = [
 ]
 
 [package.metadata.requires-dev]
-test = [
+dev = [
     { name = "aiosqlite", specifier = ">=0.21.0" },
     { name = "httpx", specifier = ">=0.28.1" },
     { name = "pytest", specifier = ">=9.0.1" },
