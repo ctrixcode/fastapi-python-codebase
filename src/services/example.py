@@ -3,8 +3,8 @@ from typing import Sequence
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
-from .model import Example
-from .schema import ExampleCreate, ExampleUpdate
+from src.models.example import Example
+from src.schemas.example import ExampleCreate, ExampleUpdate
 
 
 class ExampleService:

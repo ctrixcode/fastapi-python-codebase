@@ -2,8 +2,8 @@ import pytest
 from fastapi.testclient import TestClient
 
 from src.app import app
-from src.features.examples.api import get_example_service
-from src.features.examples.service import ExampleService
+from src.api.v1.examples import get_example_service
+from src.services.example import ExampleService
 from tests.test_db import TestingSessionLocal
 
 

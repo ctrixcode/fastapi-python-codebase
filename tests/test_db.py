@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.orm import sessionmaker
 from sqlmodel.ext.asyncio.session import AsyncSession
 
-from src.features.examples.model import Example  # Import a model to get metadata
+from src.models.example import Example  # Import a model to get metadata
 
 # Use an in-memory SQLite database for testing
 DATABASE_URL = "sqlite+aiosqlite:///:memory:"

@@ -5,8 +5,8 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 
 from src.core.database import get_db
 from src.core.exceptions import NotFoundException
-from .schema import ExampleCreate, ExampleRead, ExampleUpdate
-from .service import ExampleService
+from src.schemas.example import ExampleCreate, ExampleRead, ExampleUpdate
+from src.services.example import ExampleService
 
 router = APIRouter()
 

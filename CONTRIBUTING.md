@@ -40,16 +40,11 @@ pre-commit install
 
 This project is designed to be modular. To add a new feature (e.g., "products"), follow these steps:
 
-1.  **Create a new feature directory:**
-    ```bash
-    mkdir src/features/products
-    ```
-
-2.  **Define the Database Model (`src/features/products/model.py`):**
+1.  **Define the Database Model (`src/models/product.py`):**
     Create a `Product` class that inherits from `SQLModel`. This will be your database table schema.
 
     ```python
-    # src/features/products/model.py
+    # src/models/product.py
     from sqlmodel import Field, SQLModel
 
     class Product(SQLModel, table=True):
@@ -58,11 +53,11 @@ This project is designed to be modular. To add a new feature (e.g., "products"),
         price: float
     ```
 
-3.  **Define Pydantic Schemas (`src/features/products/schema.py`):**
+2.  **Define Pydantic Schemas (`src/schemas/product.py`):**
     Create schemas for creating, reading, and updating the resource. This ensures data validation.
 
     ```python
-    # src/features/products/schema.py
+    # src/schemas/product.py
     from pydantic import BaseModel
 
     class ProductBase(BaseModel):
@@ -80,27 +75,27 @@ This project is designed to be modular. To add a new feature (e.g., "products"),
         price: float | None = None
     ```
 
-4.  **Implement CRUD Logic (`src/features/products/crud.py`):**
-    Write the asynchronous functions that interact with the database (Create, Read, Update, Delete).
+3.  **Implement the Service (`src/services/product.py`):**
+    Write the `ProductService` class with methods that interact with the database (Create, Read, Update, Delete).
 
-5.  **Create the API Router (`src/features/products/api.py`):**
+4.  **Create the API Router (`src/api/v1/products.py`):**
     Define the API endpoints for your feature using an `APIRouter`.
 
-6.  **Include the new router in the main API:**
+5.  **Include the new router in the main API:**
     In `src/api/v1/api.py`, import and include your new router.
 
     ```python
     # src/api/v1/api.py
     from fastapi import APIRouter
-    from src.features.examples.api import router as example_router
-    from src.features.products.api import router as products_router # Add this
+    from src.api.v1.examples import router as example_router
+    from src.api.v1.products import router as products_router # Add this
 
     api_router = APIRouter()
     api_router.include_router(example_router, prefix="/examples", tags=["examples"])
     api_router.include_router(products_router, prefix="/products", tags=["products"]) # Add this
     ```
 
-7.  **Add Tests:**
-    Create a new test file in the `tests/features/` directory and add tests for your new endpoints and logic.
+6.  **Add Tests:**
+    Create new test files in the `tests/` directory that mirror the `src` structure (e.g., `tests/api/test_products.py`, `tests/services/test_products.py`).
 
 By following this structure, you help keep the codebase organized and easy to maintain. Thank you for your contribution!
