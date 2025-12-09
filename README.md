@@ -73,7 +73,7 @@ For a cleaner file explorer in Visual Studio Code, it's recommended to hide gene
 
 ### Running the Application
 
-To run the application, use `uvicorn` directly. It will automatically pick up the `UVICORN_HOST` and `UVICORN_PORT` variables from your `.env` file.
+To run the application, use `uvicorn`. Note that you must specify the port explicitly if you want to run on a port other than the default 8000.
 
 1.  **Activate the virtual environment:**
     ```bash
@@ -83,7 +83,7 @@ To run the application, use `uvicorn` directly. It will automatically pick up th
 2.  **Run the development server:**
     This command starts the server with "hot-reloading", which automatically restarts the server when you make code changes.
     ```bash
-    uv run uvicorn src.app:app --reload
+    uv run uvicorn src.app:app --port 8001 --reload
     ```
 
 The API will be available at the host and port specified in your `.env` file (e.g., `http://127.0.0.1:8001`).
