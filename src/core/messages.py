@@ -4,6 +4,7 @@ class ResponseErrorMessages:
     UNAUTHORIZED_ACCESS = (
         "Authentication is required and has failed or has not yet been provided."
     )
+    INTERNAL_SERVER_ERROR = "An unexpected error occurred."
 
 
 class ResponseMessages:

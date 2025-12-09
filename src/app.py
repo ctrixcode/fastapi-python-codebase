@@ -1,5 +1,7 @@
 from contextlib import asynccontextmanager
 
+from starlette.exceptions import HTTPException as StarletteHTTPException
+
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 
@@ -7,7 +9,7 @@ from .api.v1.api import api_router
 from .core.database import init_db
 from .core.exceptions import APIException
 from .core.logger import log
-from .core.messages import ResponseMessages
+from .core.messages import ResponseMessages, ResponseErrorMessages
 from .schemas.health import HealthCheck
 from .schemas.response import ErrorResponse, SuccessResponse
 from .core.settings import get_settings
@@ -40,6 +42,26 @@ async def api_exception_handler(request, exc: APIException):
     return JSONResponse(
         status_code=exc.status_code,
         content=ErrorResponse(err_code=exc.code, message=exc.message).model_dump(),
+    )
+
+
+@app.exception_handler(StarletteHTTPException)
+async def http_exception_handler(request, exc: StarletteHTTPException):
+    return JSONResponse(
+        status_code=exc.status_code,
+        content=ErrorResponse(err_code="HTTP_ERROR", message=exc.detail).model_dump(),
+    )
+
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request, exc: Exception):
+    log.error(f"Global exception: {exc}", exc_info=True)
+    return JSONResponse(
+        status_code=500,
+        content=ErrorResponse(
+            err_code="INTERNAL_SERVER_ERROR",
+            message=ResponseErrorMessages.INTERNAL_SERVER_ERROR,
+        ).model_dump(),
     )
 
 
