@@ -1,0 +1,18 @@
+meta {
+  name: Update Example
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseURL}}/examples/1
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "updated name",
+    "description": "updated description"
+  }
+}
