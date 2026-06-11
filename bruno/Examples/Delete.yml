@@ -1,25 +1,28 @@
 info:
-  name: Get Example
+  name: Delete
   type: http
-  seq: 3
+  seq: 5
+
 http:
-  method: GET
+  method: DELETE
   url: "{{baseURL}}/examples/1"
-  body:
-    type: none
-auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
 docs: |-
-  # Get Example
-  Retrieves a single Example resource by its database ID.
+  # Delete Example
+  Deletes an existing Example resource from the database by its ID.
 
   ## Response Examples
 
   ### Success (200 OK)
   ```json
   {
-    "id": 1,
-    "name": "dummy name",
-    "description": "dummy description"
+    "ok": true
   }
   ```
 

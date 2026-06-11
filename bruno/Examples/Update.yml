@@ -1,7 +1,8 @@
 info:
-  name: Update Example
+  name: Update
   type: http
   seq: 4
+
 http:
   method: PUT
   url: "{{baseURL}}/examples/1"
@@ -12,7 +13,13 @@ http:
         "name": "updated name",
         "description": "updated description"
       }
-auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
 docs: |-
   # Update Example
   Updates an existing Example resource by its database ID.
