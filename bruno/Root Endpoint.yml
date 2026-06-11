@@ -1,0 +1,36 @@
+info:
+  name: Root Endpoint
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: "{{rootURL}}"
+  body:
+    type: none
+auth: inherit
+settings:
+  encodeUrl: true
+docs: |-
+  # Health Check
+  Verifies the operational status of the FastAPI application.
+
+  ## Response Examples
+
+  ### Success (200 OK)
+  ```json
+  {
+    "success": true,
+    "data": {
+      "message": "API is running"
+    }
+  }
+  ```
+
+  ### Error (500 Internal Server Error)
+  ```json
+  {
+    "success": false,
+    "err_code": "INTERNAL_SERVER_ERROR",
+    "message": "Internal server error"
+  }
+  ```

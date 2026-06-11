@@ -1,0 +1,52 @@
+info:
+  name: Create Example
+  type: http
+  seq: 1
+http:
+  method: POST
+  url: "{{baseURL}}/examples/"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "dummy name",
+        "description": "dummy description"
+      }
+auth: inherit
+docs: |-
+  # Create Example
+  Creates a new Example resource in the database.
+
+  ## Request Body
+  ```json
+  {
+    "name": "dummy name",
+    "description": "dummy description"
+  }
+  ```
+
+  ## Response Examples
+
+  ### Success (200 OK)
+  ```json
+  {
+    "id": 1,
+    "name": "dummy name",
+    "description": "dummy description"
+  }
+  ```
+
+  ### Error (422 Unprocessable Entity - Validation Error)
+  ```json
+  {
+    "success": false,
+    "err_code": "HTTP_ERROR",
+    "message": [
+      {
+        "type": "missing",
+        "loc": ["body", "name"],
+        "msg": "Field required"
+      }
+    ]
+  }
+  ```

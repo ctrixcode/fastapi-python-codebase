@@ -1,0 +1,46 @@
+info:
+  name: Update Example
+  type: http
+  seq: 4
+http:
+  method: PUT
+  url: "{{baseURL}}/examples/1"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "updated name",
+        "description": "updated description"
+      }
+auth: inherit
+docs: |-
+  # Update Example
+  Updates an existing Example resource by its database ID.
+
+  ## Request Body
+  ```json
+  {
+    "name": "updated name",
+    "description": "updated description"
+  }
+  ```
+
+  ## Response Examples
+
+  ### Success (200 OK)
+  ```json
+  {
+    "id": 1,
+    "name": "updated name",
+    "description": "updated description"
+  }
+  ```
+
+  ### Error (404 Not Found)
+  ```json
+  {
+    "success": false,
+    "err_code": "NOT_FOUND",
+    "message": "Example not found"
+  }
+  ```
