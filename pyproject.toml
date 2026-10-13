@@ -7,6 +7,7 @@ requires-python = ">=3.11"
 dependencies = [
     "asyncpg>=0.32.0",
     "fastapi[standard]>=0.143.0",
+    "greenlet>=3.5.6",
     "pre-commit>=4.7.0",
     "pydantic>=2.14.1",
     "pydantic-settings>=2.15.0",

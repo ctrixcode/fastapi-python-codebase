@@ -2,18 +2,20 @@ import pytest
 from fastapi.testclient import TestClient
 
 from src.app import app
-from src.api.v1.examples import get_example_service
-from src.services.example import ExampleService
+from src.features.examples.repository import ExampleRepository
+from src.features.examples.router import get_example_service
+from src.features.examples.service import ExampleService
 from tests.test_db import TestingSessionLocal
 
 
 # Async generator for the overridden dependency
 async def override_get_example_service():
     """
-    Dependency override to use the test database session.
+    Dependency override to use the test database session via ExampleRepository.
     """
     async with TestingSessionLocal() as session:
-        yield ExampleService(session=session)
+        repo = ExampleRepository(session=session)
+        yield ExampleService(repository=repo)
 
 
 # Apply the override to the app

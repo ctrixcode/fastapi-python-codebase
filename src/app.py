@@ -18,12 +18,13 @@ from .core.settings import get_settings
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Lifespan manager for the FastAPI application."""
-    # Sever started
     log.info("Initializing database...")
-    await init_db()
-    log.info("Database initialization complete.")
+    try:
+        await init_db()
+        log.info("Database initialization complete.")
+    except Exception as e:
+        log.warning(f"Database initialization skipped or failed: {e}")
     yield
-    # Server stopped
 
 
 settings = get_settings()

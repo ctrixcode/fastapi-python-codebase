@@ -1,3 +1,4 @@
+# src/features/examples/schemas.py
 from pydantic import BaseModel
 
 
