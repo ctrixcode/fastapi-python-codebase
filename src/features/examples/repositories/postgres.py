@@ -2,7 +2,7 @@
 from collections.abc import Sequence
 from typing import Any
 
-from sqlalchemy import select
+from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from ..models import Example
@@ -19,13 +19,13 @@ class PostgresExampleRepository(IExampleRepository):
 
     async def get_by_id(self, example_id: int) -> Example | None:
         stmt = select(Example).where(Example.id == example_id)
-        result = await self.session.execute(stmt)
-        return result.scalars().first()
+        result = await self.session.exec(stmt)
+        return result.first()
 
     async def list_examples(self, skip: int = 0, limit: int = 100) -> Sequence[Example]:
         stmt = select(Example).offset(skip).limit(limit)
-        result = await self.session.execute(stmt)
-        return result.scalars().all()
+        result = await self.session.exec(stmt)
+        return result.all()
 
     async def create(self, example: Example) -> Example:
         self.session.add(example)
@@ -37,8 +37,8 @@ class PostgresExampleRepository(IExampleRepository):
         self, example_id: int, update_data: dict[str, Any]
     ) -> Example | None:
         stmt = select(Example).where(Example.id == example_id)
-        result = await self.session.execute(stmt)
-        model = result.scalars().first()
+        result = await self.session.exec(stmt)
+        model = result.first()
         if not model:
             return None
 
@@ -52,8 +52,8 @@ class PostgresExampleRepository(IExampleRepository):
 
     async def delete(self, example_id: int) -> bool:
         stmt = select(Example).where(Example.id == example_id)
-        result = await self.session.execute(stmt)
-        model = result.scalars().first()
+        result = await self.session.exec(stmt)
+        model = result.first()
         if not model:
             return False
 
