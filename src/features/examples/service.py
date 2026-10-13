@@ -2,16 +2,17 @@
 from collections.abc import Sequence
 
 from .models import Example
-from .repository import ExampleRepository
+from .repositories import IExampleRepository
 from .schemas import ExampleCreate, ExampleUpdate
 
 
 class ExampleService:
     """
     Business logic and service orchestration for the Example feature.
+    Decoupled from any database engine via IExampleRepository.
     """
 
-    def __init__(self, repository: ExampleRepository):
+    def __init__(self, repository: IExampleRepository):
         self._repository = repository
 
     async def create_example(self, data: ExampleCreate) -> Example:

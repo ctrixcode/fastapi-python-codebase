@@ -9,7 +9,7 @@ from src.core.database import get_db
 from src.core.exceptions import NotFoundException
 
 from .models import Example
-from .repository import ExampleRepository
+from .repositories import IExampleRepository, PostgresExampleRepository
 from .schemas import ExampleCreate, ExampleRead, ExampleUpdate
 from .service import ExampleService
 
@@ -18,12 +18,12 @@ router = APIRouter()
 
 def get_example_repository(
     db: Annotated[AsyncSession, Depends(get_db)],
-) -> ExampleRepository:
-    return ExampleRepository(session=db)
+) -> IExampleRepository:
+    return PostgresExampleRepository(session=db)
 
 
 def get_example_service(
-    repo: Annotated[ExampleRepository, Depends(get_example_repository)],
+    repo: Annotated[IExampleRepository, Depends(get_example_repository)],
 ) -> ExampleService:
     return ExampleService(repository=repo)
 

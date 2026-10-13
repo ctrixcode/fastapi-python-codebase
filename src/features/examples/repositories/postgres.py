@@ -1,16 +1,17 @@
-# src/features/examples/repository.py
+# src/features/examples/repositories/postgres.py
 from collections.abc import Sequence
 from typing import Any
 
 from sqlalchemy import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
-from .models import Example
+from ..models import Example
+from .interface import IExampleRepository
 
 
-class ExampleRepository:
+class PostgresExampleRepository(IExampleRepository):
     """
-    Repository encapsulating all database interactions for the Example feature.
+    Concrete PostgreSQL repository implementation using SQLAlchemy / SQLModel AsyncSession.
     """
 
     def __init__(self, session: AsyncSession):

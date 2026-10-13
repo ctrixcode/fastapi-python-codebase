@@ -1,14 +1,14 @@
 import pytest
 
 from src.features.examples.models import Example
-from src.features.examples.repository import ExampleRepository
+from src.features.examples.repositories import PostgresExampleRepository
 from tests.test_db import TestingSessionLocal
 
 
 @pytest.mark.anyio(backend="asyncio")
 async def test_example_repository_crud(create_test_tables):
     async with TestingSessionLocal() as session:
-        repo = ExampleRepository(session=session)
+        repo = PostgresExampleRepository(session=session)
 
         # 1. Create
         entity = Example(
